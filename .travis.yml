@@ -1,0 +1,22 @@
+dist: xenial
+language: minimal
+
+git:
+  quiet: true
+  submodules: false
+
+branches:
+  only:
+  - master
+  - deploy
+
+env:
+# Carefull, also set it in the deploy section!
+- NOTES_FILE=main
+
+services:
+- docker
+
+script:
+- docker run --rm -v $(pwd):/notes blang/latex /bin/bash -c "cd /notes; ./build.sh $NOTES_FILE"
+- "./test.sh $NOTES_FILE"

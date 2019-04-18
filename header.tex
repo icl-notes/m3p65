@@ -1,0 +1,228 @@
+\documentclass{article}
+
+% Packages
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{tikz-cd}
+\usepackage{csquotes}
+
+% Formatting
+
+\setlength{\parindent}{0cm}
+\addto\captionsUKenglish{\renewcommand{\abstractname}{Syllabus}}
+
+% Environments
+
+\ifx \thm\undefined
+  \newtheorem{n}{}
+\else
+  \newtheorem{n}{}[\thm]
+\fi
+
+\theoremstyle{plain}
+\newtheorem{algorithm}[n]{Algorithm}
+\newtheorem{conjecture}[n]{Conjecture}
+\newtheorem{corollary}[n]{Corollary}
+\newtheorem{lemma}[n]{Lemma}
+\newtheorem{proposition}[n]{Proposition}
+\newtheorem{theorem}[n]{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{axiom}{Axiom}
+\newtheorem{definition}[n]{Definition}
+\newtheorem{example}[n]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+
+\theoremstyle{remark}
+\newtheorem{notation}[n]{Notation}
+\newtheorem{remark}[n]{Remark}
+\newtheorem*{fact*}{Fact}
+\newtheorem*{notation*}{Notation}
+\newtheorem*{note*}{Note}
+\newtheorem*{remark*}{Remark}
+
+% Macros
+
+\newcommand{\lecture}[3]{
+  \marginpar{
+    Lecture #1 \\
+    #2
+    #3
+  }
+}
+
+\newcommand{\function}[5][]{
+  \ifx &#1&
+    \begin{array}{rcl}
+      #2 & \to     & #3 \\
+      #4 & \mapsto & #5
+    \end{array}
+  \else
+    \begin{array}{crcl}
+      #1 : & #2 & \to     & #3 \\
+           & #4 & \mapsto & #5
+    \end{array}
+  \fi
+}
+
+\newcommand{\correspondence}[2]{
+  \cb{
+    \begin{array}{c}
+      #1
+    \end{array}
+  }
+  \qquad
+  \leftrightsquigarrow
+  \qquad
+  \cb{
+    \begin{array}{c}
+      #2
+    \end{array}
+  }
+}
+
+\newcommand{\onebytwo}[2]{
+  \begin{pmatrix}
+    #1 & #2
+  \end{pmatrix}
+}
+
+\newcommand{\onebythree}[3]{
+  \begin{pmatrix}
+    #1 & #2 & #3
+  \end{pmatrix}
+}
+
+\newcommand{\twobyone}[2]{
+  \begin{pmatrix}
+    #1 \\
+    #2
+  \end{pmatrix}
+}
+
+\newcommand{\twobytwo}[4]{
+  \begin{pmatrix}
+    #1 & #2 \\
+    #3 & #4
+  \end{pmatrix}
+}
+
+\newcommand{\threebyone}[3]{
+  \begin{pmatrix}
+    #1 \\
+    #2 \\
+    #3
+  \end{pmatrix}
+}
+
+\newcommand{\threebythree}[9]{
+  \begin{pmatrix}
+    #1 & #2 & #3 \\
+    #4 & #5 & #6 \\
+    #7 & #8 & #9
+  \end{pmatrix}
+}
+
+% Commands
+
+\newcommand{\ab}[1]{\left\langle #1 \right\rangle} % Angle brackets
+\newcommand{\cb}[1]{\left\{ #1 \right\}}           % Curly brackets
+\newcommand{\fb}[1]{\left\lfloor #1 \right\rfloor} % Floor brackets
+\newcommand{\rb}[1]{\left( #1 \right)}             % Round brackets
+\renewcommand{\sb}[1]{\left[ #1 \right]}           % Square brackets
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}  % Absolute brackets
+
+\newcommand{\F}{\mathbb{F}}   % Finite fields
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integral numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\renewcommand{\H}{\mathbb{H}} % Quaternion numbers
+\newcommand{\A}{\mathbb{A}}   % Affine space
+\renewcommand{\P}{\mathbb{P}} % Projective space
+
+\renewcommand{\aa}{\mathfrak{a}} % Ideal 1
+\newcommand{\bb}{\mathfrak{b}}   % Ideal 2
+\newcommand{\mm}{\mathfrak{m}}   % Maximal ideal 1
+\newcommand{\nn}{\mathfrak{n}}   % Maximal ideal 2
+\newcommand{\pp}{\mathfrak{p}}   % Prime ideal 1
+\newcommand{\qq}{\mathfrak{q}}   % Prime ideal 2
+
+\renewcommand{\AA}{\mathcal{A}} % Calligraphic A
+\newcommand{\BB}{\mathcal{B}}   % Calligraphic B
+\newcommand{\CC}{\mathcal{C}}   % Calligraphic C
+\newcommand{\DD}{\mathcal{D}}   % Calligraphic D
+\newcommand{\EE}{\mathcal{E}}   % Calligraphic E
+\newcommand{\FF}{\mathcal{F}}   % Calligraphic F
+\newcommand{\GG}{\mathcal{G}}   % Calligraphic G
+\newcommand{\HH}{\mathcal{H}}   % Calligraphic H
+\newcommand{\II}{\mathcal{I}}   % Calligraphic I
+\newcommand{\JJ}{\mathcal{J}}   % Calligraphic J
+\newcommand{\KK}{\mathcal{K}}   % Calligraphic K
+\newcommand{\LL}{\mathcal{L}}   % Calligraphic L
+\newcommand{\MM}{\mathcal{M}}   % Calligraphic M
+\newcommand{\NN}{\mathcal{N}}   % Calligraphic N
+\newcommand{\OO}{\mathcal{O}}   % Calligraphic O
+\newcommand{\PP}{\mathcal{P}}   % Calligraphic P
+\newcommand{\QQ}{\mathcal{Q}}   % Calligraphic Q
+\newcommand{\RR}{\mathcal{R}}   % Calligraphic R
+\renewcommand{\SS}{\mathcal{S}} % Calligraphic S
+\newcommand{\TT}{\mathcal{T}}   % Calligraphic T
+\newcommand{\UU}{\mathcal{U}}   % Calligraphic U
+\newcommand{\VV}{\mathcal{V}}   % Calligraphic V
+\newcommand{\WW}{\mathcal{W}}   % Calligraphic W
+\newcommand{\XX}{\mathcal{X}}   % Calligraphic X
+\newcommand{\YY}{\mathcal{Y}}   % Calligraphic Y
+\newcommand{\ZZ}{\mathcal{Z}}   % Calligraphic Z
+
+\newcommand{\notb}[1]{\rb{\neg #1}}               % Negation
+\newcommand{\orb}[2]{\rb{#1 \lor #2}}             % Disjunction
+\newcommand{\andb}[2]{\rb{#1 \land #2}}           % Conjunction
+\newcommand{\impb}[2]{\rb{#1 \rightarrow #2}}     % Implication
+\newcommand{\iffb}[2]{\rb{#1 \leftrightarrow #2}} % Biconditional
+\newcommand{\fab}[1]{\rb{\forall #1}}             % Universal quantifier
+\newcommand{\teb}[1]{\rb{\exists #1}}             % Existential quantifier
+\newcommand{\eqb}[2]{\rb{#1 = #2}}                % Equal to
+\newcommand{\ltb}[2]{\rb{#1 < #2}}                % Less than
+\newcommand{\leb}[2]{\rb{#1 \le #2}}              % Less than or equal to
+\newcommand{\neb}[2]{\rb{#1 \ne #2}}              % Not equal to
+\newcommand{\inb}[2]{\rb{#1 \in #2}}              % An element of
+\newcommand{\nib}[2]{\rb{#1 \notin #2}}           % Not an element of
+\newcommand{\subb}[2]{\rb{#1 \subseteq #2}}       % Subset of
+
+\newcommand{\jacobi}[2]{\rb{\tfrac{#1}{#2}}}        % Jacobi symbol
+\newcommand{\Unit}[1]{\rb{\dfrac{\Z}{#1\Z}}^\times} % Unit group vertical
+\newcommand{\unit}[1]{\rb{\Z / #1\Z}^\times}        % Unit group horizontal
+
+% Tikz
+
+\tikzset{
+  arrow symbol/.style={"#1" description, allow upside down, auto=false, draw=none, sloped},
+  subset/.style={arrow symbol={\subset}},
+  cong/.style={arrow symbol={\cong}}
+}
+
+% Fancy header
+
+\pagestyle{fancy}
+\lhead{\module}
+\rhead{\nouppercase{\leftmark}}
+
+% Make title
+
+\title{\module}
+\author{Lectured by \lecturer \\ Typed by David Kurniadi Angdinata}
+\date{\term}
