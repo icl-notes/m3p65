@@ -3,3 +3,5 @@ main.log
 main.pdf
 main.toc
 token
+main.fdb_latexmk
+main.fls

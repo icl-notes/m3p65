@@ -18,8 +18,7 @@ services:
 - docker
 
 script:
-- docker run --rm -v $(pwd):/notes blang/latex /bin/bash -c "cd /notes; ./build.sh $NOTES_FILE"
-- "./test.sh $NOTES_FILE"
+- docker run --rm -v $(pwd):/notes blang/latex /bin/bash -c "cd /notes; latexmk -pdf $NOTES_FILE.tex"
 
 deploy:
   provider: releases
